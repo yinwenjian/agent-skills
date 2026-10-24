@@ -1,7 +1,7 @@
 ---
 name: "git-annual-report"
-display_name: "代码年度报告生成器"
-display_name_en: "Git Annual Report"
+display_name: "git代码提交年度报告生成器"
+display_name_en: "Git Commit Annual Report"
 description: "Load when the user asks for an annual or year-end code report, git year in review, a recap or summary of their commits, \"how much code did I write\", or repo/git statistics — or says 年度报告 / 年度总结 / 年报 / 代码年报 / 提交统计 — even if they only mention one repo and a year."
 description_zh: "把本地 git 仓库的提交历史生成为一份 16 屏、网易云年报风格的单文件离线 HTML 年度报告：年度总览、全年逐日热力图、时段与星期分布、技术栈构成、劳模文件、提交类型人设（创造者 vs 消防员）与年度判词。纯 Python 标准库零依赖，只读 git、不联网。"
 description_en: "Generate a 16-screen, Spotify-Wrapped-style single-file offline HTML year-in-code report from local git history: overview, daily heatmap, hour and weekday rhythm, tech-stack mix, hottest files, commit-type persona and a final verdict. Pure Python stdlib, zero dependencies, read-only git, never touches the network."
@@ -41,6 +41,38 @@ python3 -m annual_report /path/to/repo --year 2026 --author zhang@example.com
 参数全集：`repos`（位置参数，可多个）· `--year`（默认当前年）· `--demo` · `--seed N`（示例数据种子，同种子结果完全一致）· `--output PATH`（默认 `./annual-report.html`，父目录须存在）· `--author`（姓名或邮箱，大小写不敏感包含匹配）。
 
 退出码：`0` 成功——**包括空年份**（有效仓库当年无提交会生成空态报告，属预期行为）；`2` 路径不存在 / 不是 git 仓库 / 输出目录不存在（错误信息在 stderr）。
+
+## 调用实例
+
+**实例 1 · 30 秒看效果（无需任何仓库）**
+
+```bash
+cd <技能目录>/scripts
+python3 -m annual_report --demo --output demo-report.html
+# → 报告已生成：…/demo-report.html（约 64KB，16 屏完整报告）
+```
+
+**实例 2 · 真实仓库年度报告**
+
+```bash
+python3 -m annual_report ~/develop/yunran/oms --year 2026
+# → 报告已生成：…/annual-report.html
+# 该仓库真实产出：169 次提交、单日之王 21 次、劳模文件 OceanEngineSchedule.java
+#（46 次改动）、年度判词「日光工作者 · 创造者 · 清道夫」
+```
+
+**实例 3 · 多仓库合并 + 只统计自己**
+
+```bash
+python3 -m annual_report ~/work/api ~/work/app --year 2025 \
+  --author zhang@example.com --output my-2025.html
+```
+
+**实例 4 · 对话触发样例（代理该做的事）**
+
+> 用户：「给我的 oms 仓库出一份 2025 年的代码年报」
+
+代理动作：进入本技能 `scripts/` 目录 → 执行实例 2 形式的命令（年份换 2025）→ 校验退出码 0 且输出文件 ≥ 40KB → 告诉用户双击打开 HTML 滚动浏览。若用户没给仓库，先跑实例 1 的 `--demo` 演示效果。
 
 ## 工作流程
 

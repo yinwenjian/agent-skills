@@ -59,6 +59,41 @@ Exit codes: `0` success — **including an empty year** (a valid repo with no
 commits that year produces an empty-state report, by design); `2` bad path /
 not a git repo / missing output dir (error goes to stderr).
 
+## Invocation examples
+
+**Example 1 · 30-second demo (no repo needed)**
+
+```bash
+cd <skill-base-dir>/scripts
+python3 -m annual_report --demo --output demo-report.html
+# → 报告已生成：…/demo-report.html (~64KB, all 16 screens)
+```
+
+**Example 2 · real repository**
+
+```bash
+python3 -m annual_report ~/develop/yunran/oms --year 2026
+# → 报告已生成：…/annual-report.html
+# Real output for that repo: 169 commits, busiest day 21 commits,
+# hottest file OceanEngineSchedule.java (46 touches),
+# verdict badges「日光工作者 · 创造者 · 清道夫」
+```
+
+**Example 3 · multiple repos + author filter**
+
+```bash
+python3 -m annual_report ~/work/api ~/work/app --year 2025 \
+  --author zhang@example.com --output my-2025.html
+```
+
+**Example 4 · conversational trigger (what the agent should do)**
+
+> User: "给我的 oms 仓库出一份 2025 年的代码年报"
+
+Agent actions: `cd` into the skill's `scripts/` dir → run the Example-2
+command with `--year 2025` → verify exit code 0 and output ≥ 40KB → tell the
+user to open the HTML in a browser. No repo given? Run the `--demo` first.
+
 ## Workflow
 
 1. Get the inputs: repo path(s) and year. If the user gives none and just

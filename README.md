@@ -2,7 +2,9 @@
 
 Open agent skills（[skills.sh](https://skills.sh) 生态）——可被 Claude Code / Cursor / Codex 等编码代理直接安装使用。
 
-## git-annual-report · 代码年度报告生成器
+## git代码提交年度报告生成器（git-annual-report）
+
+![icon](skills/git-annual-report/icon.png)
 
 把本地 git 仓库的提交历史变成一份「网易云年报」风格的单文件离线 HTML 年度报告：年度总览、全年逐日热力图、24 小时与星期分布、逐月代码量、最活跃项目、技术栈构成、关键词云、时间线彩蛋、极值里程碑、提交类型人设（创造者 vs 消防员）、文风与深夜独白、开工时间表、提交节奏、劳模文件与目录、年度判词，共 16 屏。
 
