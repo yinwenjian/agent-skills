@@ -72,11 +72,9 @@ python3 -m annual_report --demo --output demo-report.html
 **Example 2 · real repository**
 
 ```bash
-python3 -m annual_report ~/develop/yunran/oms --year 2026
+python3 -m annual_report /path/to/repo --year 2026
 # → 报告已生成：…/annual-report.html
-# Real output for that repo: 169 commits, busiest day 21 commits,
-# hottest file OceanEngineSchedule.java (46 touches),
-# verdict badges「日光工作者 · 创造者 · 清道夫」
+# The report is generated from your inputs; results vary by repository and year.
 ```
 
 **Example 3 · multiple repos + author filter**
@@ -88,7 +86,7 @@ python3 -m annual_report ~/work/api ~/work/app --year 2025 \
 
 **Example 4 · conversational trigger (what the agent should do)**
 
-> User: "给我的 oms 仓库出一份 2025 年的代码年报"
+> User: "给我的项目仓库出一份 2025 年的代码年报"
 
 Agent actions: `cd` into the skill's `scripts/` dir → run the Example-2
 command with `--year 2025` → verify exit code 0 and output ≥ 40KB → tell the

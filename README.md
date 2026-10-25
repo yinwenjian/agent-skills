@@ -1,11 +1,15 @@
 # agent-skills
 
-Open agent skills（[skills.sh](https://skills.sh) 生态）——可被 Claude Code / Cursor / Codex 等编码代理直接安装使用。
+我个人维护的 Agent Skill 仓库，收录从实际工作中提炼、可复用的技能与工具。每个技能独立维护，按需安装；优先把一个明确的任务做得可靠，再逐步扩充。
 
-收录：
+## 技能目录
 
-- `git-annual-report` —— git 代码提交年度报告生成器
-- `itra-runner-score` —— ITRA 越野跑者分数查询
+| 技能 | 用途 | 运行要求 |
+| --- | --- | --- |
+| [git-annual-report](skills/git-annual-report/SKILL.md) | 将本地 Git 提交历史生成可离线分享的 HTML 年度报告 | macOS / Linux、Python 3.10+、Git |
+| [itra-runner-score](skills/itra-runner-score/SKILL.md) | 按姓名或 ITRA ID 查询越野跑者 PI、排名与完赛记录 | Python 3，需联网访问 itra.run；详见技能说明 |
+
+通过 [skills.sh](https://skills.sh) 按需安装。具体触发方式、依赖与限制，以各技能的 `SKILL.md` 为准；平台专用包见下方说明。
 
 ### 安装
 
@@ -49,18 +53,48 @@ python3 -m annual_report ~/work/api --year 2026             # 真实数据
 
 ### 使用
 
-对代理说「查一下 Kilian Jornet 的 ITRA 分数」「我的 ITRA ID 是 6385500，看看 PI 和世界排名」即可触发；或直接运行：
+对代理说「查一下 Kilian Jornet 的 ITRA 分数」「我的 ITRA ID 是 123456，看看 PI 和世界排名」即可触发；或直接运行：
 
 ```bash
 cd skills/itra-runner-score
 python3 scripts/itra.py report "Kilian Jornet" --races 20    # 姓名 → 完整档案
-python3 scripts/itra.py profile 6385500 --races 50           # 已知 ITRA ID
-python3 scripts/itra.py search "Wenjian YIN" --limit 10      # 先看候选再消歧
+python3 scripts/itra.py profile 123456 --races 50           # 虚构 ID 示例，请替换为目标跑者的实际 ID
+python3 scripts/itra.py search "Example Runner" --limit 10   # 虚构姓名示例，先看候选再消歧
 python3 scripts/itra.py report "向付召" --json                # 机器可读输出
 ```
 
 > 抓取依赖 itra.run 三个未公开行为（WAF 路径绕过、AES 载荷解密、页内两组成绩数组），细节见 [references/itra-endpoints.md](skills/itra-runner-score/references/itra-endpoints.md)。改脚本前先读它——顺手「清理」一次 URL 或加密逻辑，就会静默弄坏这个 skill。
 
+## 仓库结构
+
+```text
+agent-skills/
+├── README.md                 # 技能索引与使用入口
+├── LICENSE
+├── skills/                   # 技能源码，一个技能一个目录
+│   ├── git-annual-report/
+│   └── itra-runner-score/
+├── templates/
+│   └── SKILL.md.template      # 新技能起点，不作为可安装技能
+└── packaging/                # 平台适配包与分发产物
+```
+
+## 新增或维护技能
+
+从 [技能模板](templates/SKILL.md.template) 开始：
+
+1. 在 `skills/<skill-name>/` 创建 `SKILL.md`，目录名与 frontmatter 的 `name` 保持一致。
+2. 写清用途、触发场景、输入、执行方式、验证方法和交付结果；脚本、参考资料和素材按需添加。
+3. 在临时目录验证一个典型场景；有脚本时按风险检查关键失败场景，再更新上方技能目录。
+
+收录已整理、能独立使用的技能；从实际任务验证效果后再扩充目录。
+
+## 平台适配与打包
+
+`skills/` 是通用源码的维护入口。平台差异留在 `packaging/`，避免在两处维护同一份业务代码。
+
+目前已有 [代码年报 WorkBuddy 适配版](packaging/git-annual-report-workbuddy/SKILL.md) 与 [ZIP 包](packaging/git-annual-report-workbuddy.zip)。这份适配版保留独立的中文说明及平台元数据；修改通用脚本后，应同步脚本、重新打包并核对 ZIP 内容。当前尚无自动打包脚本。
+
 ## License
 
-[MIT](LICENSE)
+原创内容采用 [MIT](LICENSE)；引入的第三方内容遵循其原许可证，并在对应技能中注明。

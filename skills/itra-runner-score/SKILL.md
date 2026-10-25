@@ -9,11 +9,11 @@ description_zh: 按姓名或 ITRA ID 查询越野跑者的 ITRA 表现指数（P
 description_en: Look up a trail runner's ITRA Performance Index (PI), level, world/continent/country rankings and full race history by name or ITRA ID, scraped from itra.run public pages with no login, API key or third-party dependencies.
 examples_zh:
   - 帮我查一下 Kilian Jornet 的 ITRA 分数
-  - 我的 ITRA ID 是 6385500，看看 PI 和世界排名
+  - 我的 ITRA ID 是 123456，看看 PI 和世界排名
   - Kilian Jornet 和 Jim Walmsley 谁更强？对比一下 ITRA PI
 examples_en:
   - Look up the ITRA score of Kilian Jornet
-  - My ITRA ID is 6385500, show my PI and world ranking
+  - My ITRA ID is 123456, show my PI and world ranking
   - Who is stronger, Kilian Jornet or Jim Walmsley? Compare their ITRA PI
 agent_created: true
 ---
@@ -48,18 +48,20 @@ agent_created: true
 
 ```bash
 # 姓名 → 候选（含 PI），适合先消歧
-python3 scripts/itra.py search "Zdenek Hruska" --country CZE --limit 10
+python3 scripts/itra.py search "Example Runner" --country CZE --limit 10
 
 # 姓名 → 自动取排序第一位 → 完整档案（最常用）
 python3 scripts/itra.py report "Kilian Jornet" --races 20
 
 # 已知 ITRA ID / 主页链接
-python3 scripts/itra.py profile 1315857 --races 50
-python3 scripts/itra.py profile https://itra.run/RunnerSpace/hruska.zdenek.1315857
+python3 scripts/itra.py profile 123456 --races 50
+python3 scripts/itra.py profile https://itra.run/RunnerSpace/example.runner.123456
 
 # 机器可读
 python3 scripts/itra.py report "向付召" --json
 ```
+
+示例中的 `123456` 是虚构 ID，仅展示调用方式，运行时需替换为实际目标跑者 ID。
 
 加 `--json` 输出结构化字段（`itra_id`、`pi`、`level`、`world_top`、`rankings`、`pi_by_category`、`stats`、`races[]`）；加 `--verbose` 逐个打印 HTTP 请求，用于排障。
 

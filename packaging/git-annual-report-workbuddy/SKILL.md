@@ -55,10 +55,8 @@ python3 -m annual_report --demo --output demo-report.html
 **实例 2 · 真实仓库年度报告**
 
 ```bash
-python3 -m annual_report ~/develop/yunran/oms --year 2026
+python3 -m annual_report /path/to/repo --year 2026
 # → 报告已生成：…/annual-report.html
-# 该仓库真实产出：169 次提交、单日之王 21 次、劳模文件 OceanEngineSchedule.java
-#（46 次改动）、年度判词「日光工作者 · 创造者 · 清道夫」
 ```
 
 **实例 3 · 多仓库合并 + 只统计自己**
@@ -70,7 +68,7 @@ python3 -m annual_report ~/work/api ~/work/app --year 2025 \
 
 **实例 4 · 对话触发样例（代理该做的事）**
 
-> 用户：「给我的 oms 仓库出一份 2025 年的代码年报」
+> 用户：「给我的项目仓库出一份 2025 年的代码年报」
 
 代理动作：进入本技能 `scripts/` 目录 → 执行实例 2 形式的命令（年份换 2025）→ 校验退出码 0 且输出文件 ≥ 40KB → 告诉用户双击打开 HTML 滚动浏览。若用户没给仓库，先跑实例 1 的 `--demo` 演示效果。
 

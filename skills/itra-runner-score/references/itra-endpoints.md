@@ -37,13 +37,13 @@ name=<全名或部分姓名>&nationality=<IOC 国家代码或空>&start=1&count=
 {"response1": "<base64 密文>", "response2": "<base64 IV>", "response3": "<base64 原始 key>"}
 ```
 
-`response3` 解出来是 16/24/32 字节 → AES-128/192/256-CBC；`response2` 是 16 字节 IV；PKCS#7 填充。明文：
+`response3` 解出来是 16/24/32 字节 → AES-128/192/256-CBC；`response2` 是 16 字节 IV；PKCS#7 填充。明文结构如下（示例身份、标识、统计及资源路径均为虚构）：
 
 ```json
 {"ResultCount": 1, "EchoToken": ..., "Results": [{
-  "RunnerId": 1315857, "FirstName": "Zdenek", "LastName": "HRUSKA",
+  "RunnerId": 123456, "FirstName": "Example", "LastName": "RUNNER",
   "Nationality": "Czech Republic", "Gender": "Male", "AgeGroup": " 35-39",
-  "RecentRaces": "...", "ProfilePic": "/Files/Photos/pic80047_0dce70fd.jpg",
+  "RecentRaces": "...", "ProfilePic": "/Files/Photos/example.jpg",
   "Pi": 735, "PiIndex": "Expert 4", "ColorCode": "#FFB470"}]}
 ```
 
@@ -55,7 +55,7 @@ name=<全名或部分姓名>&nationality=<IOC 国家代码或空>&start=1&count=
 GET /RunnerSpace/<slug>.<slug>.<itra_id>
 ```
 
-slug 规则（在带变音符号的姓名上验证过）：转小写 → 去变音符（NFKD）→ 只保留 `a-z0-9`。`"LLADO COLOM"` → `lladocolom`。ID 必须是真实 ID；slug 错就 404，不会重定向，所以 ID 和姓名两者都得有。
+slug 规则（在带变音符号的姓名上验证过）：转小写 → 去变音符（NFKD）→ 只保留 `a-z0-9`。`"EXAMPLE RUNNER"` → `examplerunner`。ID 必须是真实 ID；slug 错就 404，不会重定向，所以 ID 和姓名两者都得有。
 
 页面是服务端渲染的，里面并列着六个数据孤岛：
 
