@@ -71,16 +71,14 @@ python3 scripts/itra.py report "向付召" --json                # 机器可读�
 agent-skills/
 ├── README.md                 # 技能索引与使用入口
 ├── LICENSE
-├── skills/                   # 技能源码，一个技能一个目录
-│   ├── git-annual-report/
-│   └── itra-runner-score/
-└── templates/
-    └── SKILL.md.template      # 新技能起点，不作为可安装技能
+└── skills/                   # 技能源码，一个技能一个目录
+    ├── git-annual-report/
+    └── itra-runner-score/
 ```
 
 ## 新增或维护技能
 
-从 [技能模板](templates/SKILL.md.template) 开始：
+新增技能时：
 
 1. 在 `skills/<skill-name>/` 创建 `SKILL.md`，目录名与 frontmatter 的 `name` 保持一致。
 2. 写清用途、触发场景、输入、执行方式、验证方法和交付结果；脚本、参考资料和素材按需添加。
