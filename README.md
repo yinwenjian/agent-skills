@@ -9,7 +9,7 @@
 | [git-annual-report](skills/git-annual-report/SKILL.md) | 将本地 Git 提交历史生成可离线分享的 HTML 年度报告 | macOS / Linux、Python 3.10+、Git |
 | [itra-runner-score](skills/itra-runner-score/SKILL.md) | 按姓名或 ITRA ID 查询越野跑者 PI、排名与完赛记录 | Python 3，需联网访问 itra.run；详见技能说明 |
 
-通过 [skills.sh](https://skills.sh) 按需安装。具体触发方式、依赖与限制，以各技能的 `SKILL.md` 为准；平台专用包见下方说明。
+通过 [skills.sh](https://skills.sh) 按需安装。具体触发方式、依赖与限制，以各技能的 `SKILL.md` 为准。
 
 ### 安装
 
@@ -74,9 +74,8 @@ agent-skills/
 ├── skills/                   # 技能源码，一个技能一个目录
 │   ├── git-annual-report/
 │   └── itra-runner-score/
-├── templates/
-│   └── SKILL.md.template      # 新技能起点，不作为可安装技能
-└── packaging/                # 平台适配包与分发产物
+└── templates/
+    └── SKILL.md.template      # 新技能起点，不作为可安装技能
 ```
 
 ## 新增或维护技能
@@ -88,12 +87,6 @@ agent-skills/
 3. 在临时目录验证一个典型场景；有脚本时按风险检查关键失败场景，再更新上方技能目录。
 
 收录已整理、能独立使用的技能；从实际任务验证效果后再扩充目录。
-
-## 平台适配与打包
-
-`skills/` 是通用源码的维护入口。平台差异留在 `packaging/`，避免在两处维护同一份业务代码。
-
-目前已有 [代码年报 WorkBuddy 适配版](packaging/git-annual-report-workbuddy/SKILL.md) 与 [ZIP 包](packaging/git-annual-report-workbuddy.zip)。这份适配版保留独立的中文说明及平台元数据；修改通用脚本后，应同步脚本、重新打包并核对 ZIP 内容。当前尚无自动打包脚本。
 
 ## License
 
